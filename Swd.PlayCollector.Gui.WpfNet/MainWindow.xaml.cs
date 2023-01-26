@@ -33,12 +33,25 @@ namespace Swd.PlayCollector.Gui.WpfNet
             Location loc = new Location();
             loc.Name = "Testlocation";
 
+
+            Location loc1 = new Location();
+            loc1.Name = "Testlocation";
+
             Swd.PlayCollector.DataNet.PlayCollector model = new Swd.PlayCollector.DataNet.PlayCollector();
             model.Locations.Add(loc);
             model.SaveChanges();
 
+            model.Locations.Add(loc1);
+            model.SaveChanges();
+
             List<Location> list = new List<Location>();
             list = model.Locations.ToList();
+
+            Location firstLocation = model.Locations.Find(1);
+
+            Location newLocation = model.Locations.Where(l=>l.Id == 2).FirstOrDefault();
+
+
 
 
         }
