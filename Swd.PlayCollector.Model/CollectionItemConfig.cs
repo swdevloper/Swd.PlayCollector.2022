@@ -15,8 +15,10 @@ namespace Swd.PlayCollector.Model
         {
             entity.HasKey(m => m.Id).IsClustered(true);
             entity.Property(m => m.Name).IsRequired().HasColumnType("nvarchar(50)").HasComment("Name of collection item");
-            entity.Property(m => m.Number).IsRequired().HasColumnType("nvarchar(25)").HasComment("Number of collection item");
+            entity.Property(m => m.Number).IsRequired(false).HasColumnType("nvarchar(25)").HasComment("Number of collection item");
+            
             entity.Property(m => m.Price).IsRequired().HasColumnType("decimal(8,2)").HasComment("Price of collection item").HasDefaultValue(0);
+            
             entity.HasIndex(m => m.Name).HasDatabaseName("idx_CollectionItem_Name");
 
         }
