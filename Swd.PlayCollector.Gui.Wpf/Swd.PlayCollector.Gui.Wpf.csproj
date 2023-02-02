@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Swd.PlayCollector.Business\Swd.PlayCollector.Business.csproj" />
     <ProjectReference Include="..\Swd.PlayCollector.Model\Swd.PlayCollector.Model.csproj" />
   </ItemGroup>
 

@@ -75,12 +75,16 @@ namespace Swd.PlayCollector.Repository
                 _dbSet.Remove(existing);
                 _dbContext.SaveChanges();
             }
-            
         }
 
-        public Task DeleteAsync(object key)
+        public async Task DeleteAsync(object key)
         {
-            throw new NotImplementedException();
+            TEntity existing = await _dbSet.FindAsync(key);
+            if (existing != null)
+            {
+                _dbSet.Remove(existing);
+                await _dbContext.SaveChangesAsync();
+            }
         }
 
 
@@ -90,10 +94,14 @@ namespace Swd.PlayCollector.Repository
             return _dbSet.AsQueryable();
         }
 
-        public Task<IQueryable<TEntity>> GetAllAsync()
+
+
+        public async Task<IQueryable<TEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return _dbSet.AsQueryable();
         }
+
+
 
 
         public TEntity GetById(object key)
@@ -101,9 +109,9 @@ namespace Swd.PlayCollector.Repository
             return _dbSet.Find(key);
         }
 
-        public Task<TEntity> GetByIdAsync(object key)
+        public async Task<TEntity> GetByIdAsync(object key)
         {
-            throw new NotImplementedException();
+            return await _dbSet.FindAsync(key);
         }
 
 
@@ -120,9 +128,15 @@ namespace Swd.PlayCollector.Repository
 
         }
 
-        public Task UpdateAsync(TEntity t, object key)
+        public async Task UpdateAsync(TEntity t, object key)
         {
-            throw new NotImplementedException();
+            TEntity existing = await _dbSet.FindAsync(key);
+            if (existing != null)
+            {
+                _dbContext.Entry(existing).CurrentValues.SetValues(t);
+                await _dbContext.SaveChangesAsync();
+                await _dbContext.Entry(existing).ReloadAsync();
+            }
         }
     }
 

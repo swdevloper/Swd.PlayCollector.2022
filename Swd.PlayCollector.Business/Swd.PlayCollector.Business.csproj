@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Swd.PlayCollector.Model\Swd.PlayCollector.Model.csproj" />
+    <ProjectReference Include="..\Swd.PlayCollector.Repository\Swd.PlayCollector.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

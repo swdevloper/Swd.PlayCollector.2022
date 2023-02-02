@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Swd.PlayCollector.Business;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,14 @@ namespace Swd.PlayCollector.Gui.Wpf
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+
+
+        private async void btnLoadData_Click(object sender, RoutedEventArgs e)
+        {
+            CollectionItemService service = new CollectionItemService();
+            this.grdCollectionItems.ItemsSource = await service.GetAllAsync().Result.ToListAsync();
         }
     }
 }

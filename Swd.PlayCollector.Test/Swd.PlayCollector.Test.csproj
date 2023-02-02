@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Swd.PlayCollector.Repository\Swd.PlayCollector.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Testdata\" />
+  </ItemGroup>
+
 </Project>
