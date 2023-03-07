@@ -8,6 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\itemAdd.png" />
+    <None Remove="Resources\itemDelete.png" />
+    <None Remove="Resources\itemSave.png" />
+    <None Remove="Resources\klicky.png" />
+    <None Remove="Resources\viewList.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Resources\Resources.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.2">
       <PrivateAssets>all</PrivateAssets>
@@ -18,6 +32,24 @@
   <ItemGroup>
     <ProjectReference Include="..\Swd.PlayCollector.Business\Swd.PlayCollector.Business.csproj" />
     <ProjectReference Include="..\Swd.PlayCollector.Model\Swd.PlayCollector.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\itemAdd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\itemDelete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\itemSave.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\klicky.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Resources.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

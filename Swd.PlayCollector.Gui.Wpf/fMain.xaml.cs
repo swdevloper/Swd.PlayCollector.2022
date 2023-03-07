@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Ribbon;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -21,12 +22,13 @@ namespace Swd.PlayCollector.Gui.Wpf
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class fMain : Window
+    public partial class fMain : RibbonWindow
+
     {
         public fMain()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowsViewModel();
+            this.DataContext = new fMainViewModel();
         }
 
 

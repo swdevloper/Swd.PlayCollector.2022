@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:Swd.PlayCollector.Gui.Wpf"
              StartupUri="fMain.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles.xaml" />
+                <ResourceDictionary Source="Resources/Resources.xaml" />
+                <ResourceDictionary Source="Resources/Templates.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary> 
     </Application.Resources>
 </Application>
