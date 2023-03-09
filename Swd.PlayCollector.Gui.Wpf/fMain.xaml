@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Swd.PlayCollector.Gui.Wpf"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="768" Width="1024" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"
         Background="{StaticResource PlaymoColor}" >
     <Grid>
         <Grid.RowDefinitions>
@@ -36,15 +36,15 @@
 
             <RibbonTab Header="Start">
                 <RibbonGroup x:Name="grpCollectionItem" Header="Collection item">
-                    <RibbonButton Label="New" LargeImageSource="pack://application:,,,/Resources/itemAdd.png" />
-                    <RibbonButton Label="Delete" LargeImageSource="pack://application:,,,/Resources/itemDelete.png"/>
-                    <RibbonButton Label="Save" LargeImageSource="pack://application:,,,/Resources/itemSave.png"/>
+                    <RibbonButton Label="New" Command="{Binding AddCollectionItemCommand}" LargeImageSource="pack://application:,,,/Resources/itemAdd.png" />
+                    <RibbonButton Label="Delete" Command="{Binding DeleteCollectionItemCommand}" LargeImageSource="pack://application:,,,/Resources/itemDelete.png"/>
+                    <RibbonButton Label="Save" Command="{Binding SaveCollectionItemCommand}" LargeImageSource="pack://application:,,,/Resources/itemSave.png"/>
                 </RibbonGroup>
 
                 <RibbonGroup x:Name="grpMediaitems" Header="Insert">
-                    <RibbonButton Label="Image" LargeImageSource="pack://application:,,,/Resources/itemAdd.png"/>
-                    <RibbonButton Label="Document" LargeImageSource="pack://application:,,,/Resources/itemAdd.png"/>
-                    <RibbonButton Label="Link" LargeImageSource="pack://application:,,,/Resources/itemAdd.png"/>
+                    <RibbonButton Label="Image" LargeImageSource="pack://application:,,,/Resources/mediaImageAdd.PNG"/>
+                    <RibbonButton Label="Document" LargeImageSource="pack://application:,,,/Resources/mediaDocumentAdd.PNG"/>
+                    <RibbonButton Label="Link" LargeImageSource="pack://application:,,,/Resources/mediaLinkAdd.PNG"/>
                 </RibbonGroup>
             </RibbonTab>
 
@@ -67,17 +67,31 @@
 
 
         <!--Navigation-->
-        <StackPanel Grid.Row="1" Grid.Column="0"  Orientation="Vertical" >
-            <TextBox Text="search..." />
-            <ListBox VerticalAlignment="Stretch"
+        <DockPanel Grid.Row="1" Grid.Column="0" LastChildFill="True"   >
+            <TextBox Text="{Binding SearchValue, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Top" Margin="5 15 5 10" />
+            <!--<ListBox VerticalAlignment="Stretch"
+                     Margin="5 0"
                      ItemsSource="{Binding CollectionItemsList}"
                      ItemTemplate="{StaticResource templCollectionItemListItem}"
                      AlternationCount="2"
                      ItemContainerStyle="{StaticResource ListBoxItemAlternatingStyle}"
                      SelectedItem="{Binding SelectedCollectionItem, UpdateSourceTrigger=PropertyChanged}"
+                     />-->
+            <ListView VerticalAlignment="Stretch"
+                     Margin="5 0"
+                     ItemsSource="{Binding CollectionItemsList}"
+                     ItemTemplate="{StaticResource templCollectionItemListItem}"
+                     AlternationCount="1"
+                     ItemContainerStyle="{StaticResource ListBoxItemAlternatingStyle}"
+                     SelectedItem="{Binding SelectedCollectionItem, UpdateSourceTrigger=PropertyChanged}"
+                      IsSynchronizedWithCurrentItem="True"
                      />
-        </StackPanel>
 
+        </DockPanel>
+
+        
+        
+        
         <!--Content-->
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" >
             <StackPanel>
@@ -107,13 +121,25 @@
                     <Label Grid.Row="5" Grid.Column="0" Content="Realeaseyear" />
                     <Label Grid.Row="6" Grid.Column="0" Content="Price" />
 
-                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedCollectionItem.Name}" />
-                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedCollectionItem.Number}" />
-                    <ComboBox Grid.Row="3" Grid.Column="1"  />
-                    <ComboBox Grid.Row="4" Grid.Column="1"  />
-                    <TextBox Grid.Row="5" Grid.Column="1" Text="Realeaseyear" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedCollectionItem.Name, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedCollectionItem.Number, UpdateSourceTrigger=PropertyChanged}" />
+                    <ComboBox Grid.Row="3" Grid.Column="1"
+                              IsEditable="True"
+                              ItemsSource="{Binding ThemeList}" 
+                              DisplayMemberPath="Name"
+                              SelectedValuePath="Id"
+                              SelectedValue="{Binding SelectedCollectionItem.ThemeId, UpdateSourceTrigger=PropertyChanged}"
+                              />
+                    <ComboBox Grid.Row="4" Grid.Column="1"
+                              IsEditable="True"
+                              ItemsSource="{Binding LocationList}" 
+                              DisplayMemberPath="Name"
+                              SelectedValuePath="Id"
+                              SelectedValue="{Binding SelectedCollectionItem.LocationId, UpdateSourceTrigger=PropertyChanged}"
+                              />
+                    <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedCollectionItem.ReleaseYear, UpdateSourceTrigger=PropertyChanged}" />
                     <!--<TextBox Grid.Row="6" Grid.Column="1" Text="Price" />-->
-                    <xctk:DecimalUpDown Grid.Row="6" Grid.Column="1" FormatString="#,##0.00" Minimum="0" Maximum="99999" Increment="1" />
+                    <xctk:DecimalUpDown Value="{Binding SelectedCollectionItem.Price, UpdateSourceTrigger=PropertyChanged}" Grid.Row="6" Grid.Column="1" FormatString="#,##0.00" Minimum="0" Maximum="99999" Increment="1" />
 
                 </Grid>
             </StackPanel>

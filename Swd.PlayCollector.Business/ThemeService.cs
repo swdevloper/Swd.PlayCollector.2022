@@ -6,27 +6,21 @@ namespace Swd.PlayCollector.Business
 
 
 
-    public class CollectionItemService
+    public class ThemeService
     {
+        private IThemeRepository _IRepository;
 
-        private ICollectionItemRepository _IRepository;
 
-
-        public CollectionItemService()
+        public ThemeService()
         {
-            _IRepository = new CollectionItemRepository();
-
+            _IRepository = new ThemeRepository();
         }
 
 
-        public async Task<IQueryable<CollectionItem>> GetAllAsync()
+        public async Task<IQueryable<Theme>> GetAllAsync()
         {
-
-
-
             var returnList = await _IRepository.GetAllAsync();
             return returnList;
-
         }
 
 

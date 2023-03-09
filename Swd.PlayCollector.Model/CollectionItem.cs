@@ -27,5 +27,31 @@ namespace Swd.PlayCollector.Model
         
         public List<Media> MediaSet { get; set; }
 
+        public string SearchField
+        {
+            get { return string.Format("{0}{1}{2}", this.Id, this.Name, this.Number); }
+        }
+
+        public CollectionItem()
+        {
+
+        }
+
+
+
+        public CollectionItem(bool withDefaults): this()
+        {
+            if(withDefaults)
+            {
+                this.Number = "9999";
+                this.Price = 0; 
+                this.ReleaseYear = DateTime.Today.Year;
+            }
+        }
+
+
+
+
+
     }
 }
