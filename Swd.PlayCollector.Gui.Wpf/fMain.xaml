@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Swd.PlayCollector.Gui.Wpf"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:dragDrop="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"  
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1024" ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen"
         Background="{StaticResource PlaymoColor}" >
@@ -23,14 +24,14 @@
         <Ribbon Grid.Row="0" Grid.ColumnSpan="2" SelectedIndex="0" >
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu>
-                    <RibbonApplicationMenuItem Header="Import" ImageSource="pack://application:,,,/Resources/itemAdd.png" />
+                    <RibbonApplicationMenuItem Header="Import" Command="{Binding ImportCommand}" ImageSource="pack://application:,,,/Resources/itemAdd.png" />
                     <RibbonApplicationMenuItem Header="Export" />
                     <RibbonApplicationSplitMenuItem />
                     <RibbonApplicationMenuItem Header="Print" />
                     <RibbonApplicationSplitMenuItem />
                     <RibbonApplicationMenuItem Header="Setting" />
                     <RibbonApplicationSplitMenuItem />
-                    <RibbonApplicationMenuItem Header="Close" />
+                    <RibbonApplicationMenuItem Header="Close" Command="{Binding ExitCommand}" />
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
 
@@ -145,7 +146,13 @@
             </StackPanel>
 
             <!--Files-->
-            <DataGrid VerticalAlignment="Stretch" />
+            <Border 
+                dragDrop:DragDrop.IsDropTarget="True" 
+                dragDrop:DragDrop.DropHandler="{Binding }"
+                BorderThickness="1 1 1 1" Background="#DDDDDDDD" Height="35" Margin="2" BorderBrush="DarkGray">
+                <Label Content="Drop files here..." />
+            </Border>
+            <DataGrid Margin="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectedCollectionItem.MediaSet}" />
 
         </StackPanel>
 

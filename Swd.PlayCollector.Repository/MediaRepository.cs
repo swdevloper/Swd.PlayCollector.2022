@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Swd.PlayCollector.Repository
 {
-    public class LocationRepository : GenericRepository<Location, PlayCollectorContext>, ILocationRepository
+    public class MediaRepository : GenericRepository<Media, PlayCollectorContext>, IMediaRepository
     {
 
 

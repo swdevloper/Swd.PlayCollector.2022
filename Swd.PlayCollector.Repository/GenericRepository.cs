@@ -125,7 +125,6 @@ namespace Swd.PlayCollector.Repository
                 _dbContext.SaveChanges();
                 _dbContext.Entry(existing).Reload();
             }
-
         }
 
         public async Task UpdateAsync(TEntity t, object key)
