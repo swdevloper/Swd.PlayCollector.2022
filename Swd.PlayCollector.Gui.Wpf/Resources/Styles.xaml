@@ -45,6 +45,11 @@
         <Setter Property="Height" Value="35" />
     </Style>
 
+    <Style TargetType="Image" x:Key="imgPreviewitem">
+        <Setter Property="Width" Value="130" />
+        <Setter Property="Height" Value="100" />
+    </Style>
+
 
     <!--<Style TargetType="RowDefinition">
         <Setter Property="Height" Value="35" />

@@ -56,46 +56,38 @@ namespace Swd.PlayCollector.Business
         }
 
 
-        public async Task AddMediaItems(IEnumerable<string> files, int id)
-        {
-            foreach (var file in files)
+       public async Task AddMediaItems(IEnumerable<string> sourcefilePaths, CollectionItem item)
+       { 
+            if(item!=null)
             {
-                string mediaFile = await CopyFile(file, id);
-                if(mediaFile != null)
+                foreach (var sourcefilePath in sourcefilePaths)
                 {
-                    Media media = new Media();
-                    media.Name = file;
-                    media.TypeOfDocument = new TypeOfDocument { Id = 1 };
-                    media.Uri = file;
+                    string targetFilePath = await CopyFile(sourcefilePath, item.Id);
+                    string fileExtension = Path.GetExtension(targetFilePath);
+                    TypeOfDocumentService typeOfDocumentService = new TypeOfDocumentService();
 
-                    CollectionItem item = await GetById(id);
-
-                    media.CollectionItem = item;
-                    await AddMediaItemAsync(media);
+                    Media media = new Media
+                    {
+                        Name = Path.GetFileName(targetFilePath),
+                        Uri = string.Format("{0}", item.Id),
+                        TypeOfDocument = await typeOfDocumentService.GetTypeOfDocumentByFileExtension(fileExtension),
+                        CollectionItem = item
+                    };
+                    _IRepository.AddMedia(item, media);
                 }
             }
-        }
+       }
 
-
-        private async Task<string> CopyFile(string sourceFile, int id)
+        private async Task<string> CopyFile(string sourceFilePath, int id)
         {
+            // TODO: String literal durch configurations wert ersetzen
             string rootDir = @"C:\\SwDeveloper2022\\SWDData\\PlayCollector";
-            string targetDir = Path.Combine(rootDir, id.ToString());
-            if(!Directory.Exists(targetDir))
-            {
-                Directory.CreateDirectory(targetDir);
-            }
-            string fileName = Path.GetFileName(sourceFile);
-            string targetFile = Path.Combine(rootDir, id.ToString(), fileName); ;
-            File.Copy(sourceFile, targetFile, true);
-            return targetFile;
+            string targetFilePath = Path.Combine(rootDir, id.ToString(), Path.GetFileName(sourceFilePath));
+            await FileHelper.CopyFile(sourceFilePath, targetFilePath);
+            return targetFilePath;
         }
 
-        private async Task AddMediaItemAsync(Media media)
-        {
-            MediaService mediaService = new MediaService();
-            await mediaService.AddAsync(media);
-        }
+ 
 
     }
 }

@@ -94,8 +94,8 @@
         
         
         <!--Content-->
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" >
-            <StackPanel>
+        <DockPanel Grid.Row="1" Grid.Column="1"  LastChildFill="True" >
+            <StackPanel DockPanel.Dock="Top">
                 <!--Data for item-->
                 <Grid>
                     <Grid.RowDefinitions>
@@ -146,15 +146,38 @@
             </StackPanel>
 
             <!--Files-->
-            <Border 
-                dragDrop:DragDrop.IsDropTarget="True" 
-                dragDrop:DragDrop.DropHandler="{Binding }"
-                BorderThickness="1 1 1 1" Background="#DDDDDDDD" Height="35" Margin="2" BorderBrush="DarkGray">
-                <Label Content="Drop files here..." />
-            </Border>
-            <DataGrid Margin="2" VerticalAlignment="Stretch" ItemsSource="{Binding SelectedCollectionItem.MediaSet}" />
+            <DockPanel DockPanel.Dock="Bottom">
+                <Border DockPanel.Dock="Top"
+                    dragDrop:DragDrop.IsDropTarget="True" 
+                    dragDrop:DragDrop.DropHandler="{Binding }"
+                    BorderThickness="1 1 1 1" Background="#DDDDDDDD" Height="35" Margin="2" BorderBrush="DarkGray">
+                    <Label Content="Drop files here..." />
+                </Border>
+                <DataGrid DockPanel.Dock="Bottom" Margin="2" 
+                          VerticalAlignment="Stretch"
+                          ItemsSource="{Binding SelectedCollectionItem.MediaSet}"
+                          AutoGenerateColumns="False"
+                          VerticalScrollBarVisibility="Visible"
+                          >
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding ImagePath}" Style="{StaticResource imgPreviewitem}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                            
+                            
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Document"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Type of Document"/>
+                    </DataGrid.Columns>
 
-        </StackPanel>
+                </DataGrid>
+            </DockPanel>
+        
+        </DockPanel>
 
 
         <!--Statusbar-->

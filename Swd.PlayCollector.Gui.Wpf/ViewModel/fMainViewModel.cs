@@ -238,13 +238,12 @@ namespace Swd.PlayCollector.Gui.Wpf.ViewModel
                 }) ? DragDropEffects.Copy : DragDropEffects.None;
 
                 CollectionItemService service = new CollectionItemService();
-                await service.AddMediaItems(dragFileList, SelectedCollectionItem.Id);
+                await service.AddMediaItems(dragFileList, SelectedCollectionItem);
             }
             else
             {
                 dropInfo.Effects = DragDropEffects.None;
             }
-
         }
     }
 }
