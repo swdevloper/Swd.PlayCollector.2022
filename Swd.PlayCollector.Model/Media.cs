@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Swd.PlayCollector.Helper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
@@ -25,12 +26,10 @@ namespace Swd.PlayCollector.Model
         {
             get
             {
-                // TODO: String literal durch configurations wert ersetzen
-                string rootDir = @"C:\\SwDeveloper2022\\SWDData\\PlayCollector";
+                PlayCollectorConfiguration config = new PlayCollectorConfiguration();
+                string rootDir =config.PathToMediaFiles;
                 return Path.Combine(rootDir,Uri,Name);
-
             }
-
         }
 
     }

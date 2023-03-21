@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GongSolutions.Wpf.DragDrop;
+using GongSolutions.Wpf.DragDrop.Utilities;
 using Swd.PlayCollector.Business;
 using Swd.PlayCollector.Model;
 using System;
@@ -16,7 +17,7 @@ using System.Windows.Data;
 
 namespace Swd.PlayCollector.Gui.Wpf.ViewModel
 {
-    public partial class fMainViewModel: ObservableObject, IDropTarget
+    public partial class fMainViewModel: ObservableValidator, IDropTarget
     {
         private string _searchValue;
         private string _statusBarText;
@@ -36,14 +37,18 @@ namespace Swd.PlayCollector.Gui.Wpf.ViewModel
         }
         public string StatusBarText
         {
-            get { return GetStatusBarText(); }
-            set { SetProperty(ref _statusBarText, value); }
+            get { return
+                    _statusBarText;
+                 }
+            set { 
+                SetProperty(ref _statusBarText, value);
+            }
         }
         public CollectionItem SelectedCollectionItem
         {
             get { return _selectedCollectionItem; }
             set { 
-                SetProperty(ref _selectedCollectionItem, value);
+                SetProperty(ref _selectedCollectionItem, value,true);
                 this.DeleteCollectionItemCommand.NotifyCanExecuteChanged();
                 this.SaveCollectionItemCommand.NotifyCanExecuteChanged();
             }
@@ -111,6 +116,7 @@ namespace Swd.PlayCollector.Gui.Wpf.ViewModel
 
             CollectionItemsView = CollectionViewSource.GetDefaultView(CollectionItemsList);
             CollectionItemsView.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+
         }
 
 
@@ -118,6 +124,7 @@ namespace Swd.PlayCollector.Gui.Wpf.ViewModel
         {
             CollectionItemsView = CollectionViewSource.GetDefaultView(CollectionItemsList);
             CollectionItemsView.Filter = CollectionItemFilter;
+            SetStatusBarText(CollectionItemsView.Cast<CollectionItem>().Count());
         }
 
 
@@ -206,7 +213,12 @@ namespace Swd.PlayCollector.Gui.Wpf.ViewModel
 
         private string GetStatusBarText()
         {
-            return string.Format("{0} items found.", this.CollectionItemsList.Count);
+            return string.Format("{0} items found.", this.CollectionItemsView.SourceCollection.TryGetList().Count);
+        }
+
+        private void SetStatusBarText(int numberOfRecords)
+        {
+            this.StatusBarText = string.Format("{0} items found.", numberOfRecords);
         }
 
         public void DragOver(IDropInfo dropInfo)

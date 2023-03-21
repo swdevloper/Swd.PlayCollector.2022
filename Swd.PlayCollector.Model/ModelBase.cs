@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Swd.PlayCollector.Model
 {
-    public class ModelBase
+    public class ModelBase: ObservableValidator
     {
 
         [MaxLength(25)]

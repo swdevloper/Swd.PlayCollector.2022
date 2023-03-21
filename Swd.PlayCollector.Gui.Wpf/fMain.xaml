@@ -122,8 +122,15 @@
                     <Label Grid.Row="5" Grid.Column="0" Content="Realeaseyear" />
                     <Label Grid.Row="6" Grid.Column="0" Content="Price" />
 
-                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedCollectionItem.Name, UpdateSourceTrigger=PropertyChanged}" />
-                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedCollectionItem.Number, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox Grid.Row="1" Grid.Column="1" 
+                             Text="{Binding SelectedCollectionItem.Name, UpdateSourceTrigger=PropertyChanged}" 
+                             Validation.ErrorTemplate="{StaticResource ResourceKey=textBoxErrorTemplate}"
+                             />
+                    <TextBox Grid.Row="2" Grid.Column="1" 
+                             Text="{Binding SelectedCollectionItem.Number, UpdateSourceTrigger=PropertyChanged}" 
+                              Validation.ErrorTemplate="{StaticResource ResourceKey=textBoxErrorTemplate}"
+                             
+                             />
                     <ComboBox Grid.Row="3" Grid.Column="1"
                               IsEditable="True"
                               ItemsSource="{Binding ThemeList}" 
@@ -182,7 +189,7 @@
 
         <!--Statusbar-->
         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" >
-            <Label Content="{Binding StatusBarText}" />
+            <Label Content="{Binding StatusBarText, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
         </StackPanel>
 
     </Grid>
